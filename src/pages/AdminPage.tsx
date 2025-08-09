@@ -15,13 +15,17 @@ const AdminPage = () => {
     const userInfo = localStorage.getItem('user_info');
     const userIo = localStorage.getItem('user');
 
+    // Only redirect if token or user info is missing
     if (!token || (!userInfo && !userIo)) {
-      toast({
-        title: 'Authentication Required',
-        description: 'Please log in to access this page.',
-        variant: 'destructive',
-      });
-      navigate('/login');
+      // Only show toast and redirect if not already on login page
+      if (window.location.pathname !== '/login') {
+        toast({
+          title: 'Authentication Required',
+          description: 'Please log in to access this page.',
+          variant: 'destructive',
+        });
+        navigate('/login');
+      }
       return;
     }
 
@@ -33,21 +37,17 @@ const AdminPage = () => {
       user = null;
     }
 
-    // Debug: log user and role
-    // Remove or comment out after debugging
-    // eslint-disable-next-line no-console
-    console.log('AdminPage user:', user);
-    // eslint-disable-next-line no-console
-    console.log('AdminPage user.role:', user && user.role);
-
     const allowedRoles = ['admin', 'ADMIN', 'DISTRIBUTOR', 'HEAD_OF_DISTRIBUTOR'];
     if (!user || !user.role || !allowedRoles.includes(user.role)) {
-      toast({
-        title: 'Access Denied',
-        description: 'You do not have permission to access this page.',
-        variant: 'destructive',
-      });
-      navigate('/login');
+      // Only show toast and redirect if not already on login page
+      if (window.location.pathname !== '/login') {
+        toast({
+          title: 'Access Denied',
+          description: 'You do not have permission to access this page.',
+          variant: 'destructive',
+        });
+        navigate('/login');
+      }
     }
   }, [navigate, toast]);
 
