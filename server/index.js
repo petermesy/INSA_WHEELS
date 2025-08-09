@@ -72,6 +72,16 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to INSA-Wheels Tracker API' });
 });
 
+// Debug CORS route
+app.get('/api/debug-cors', (req, res) => {
+  res.json({
+    message: 'CORS debug route',
+    origin: req.headers.origin,
+    headers: req.headers,
+    custom: 'If you see this, you are hitting the correct backend instance.'
+  });
+});
+
 // Example: Emit carLocationUpdate to a room (call this in your location update logic)
 function emitCarLocationUpdate(driverId, locationData) {
   // For each employee assigned to this driver/vehicle, emit to their room
