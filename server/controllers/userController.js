@@ -54,7 +54,7 @@ const getUserById = async (req, res) => {
 const getUsersByRole = async (req, res) => {
   const { role } = req.params;
 
-  if (!['admin', 'driver', 'employee'].includes(role)) {
+  if (!['admin', 'driver', 'employee','ADMIN', 'DISTRIBUTOR', 'HEAD_OF_DISTRIBUTOR'].includes(role)) {
     return res.status(400).json({ error: 'Invalid role' });
   }
 
@@ -85,7 +85,7 @@ const createUser = async (req, res) => {
     return res.status(400).json({ error: 'Password must be at least 8 characters long' });
   }
 
-  if (!['admin', 'driver', 'employee'].includes(role)) {
+  if (!['admin', 'driver', 'employee','ADMIN', 'DISTRIBUTOR', 'HEAD_OF_DISTRIBUTOR'].includes(role)) {
     return res.status(400).json({ error: 'Invalid role' });
   }
 
@@ -124,7 +124,7 @@ const updateUser = async (req, res) => {
     return res.status(400).json({ error: 'Password must be at least 8 characters long' });
   }
 
-  if (!['admin', 'driver', 'employee'].includes(role)) {
+  if (!['admin', 'driver', 'employee','ADMIN', 'DISTRIBUTOR', 'HEAD_OF_DISTRIBUTOR'].includes(role)) {
     return res.status(400).json({ error: 'Invalid role' });
   }
 

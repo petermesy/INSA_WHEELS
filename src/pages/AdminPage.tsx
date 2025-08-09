@@ -13,8 +13,9 @@ const AdminPage = () => {
     // Check if user is authenticated and is an admin
     const token = localStorage.getItem('auth_token');
     const userInfo = localStorage.getItem('user_info');
-    
-    if (!token || !userInfo) {
+    const userIo = localStorage.getItem('user');
+
+    if (!token || (!userInfo && !userIo)) {
       toast({
         title: 'Authentication Required',
         description: 'Please log in to access this page.',
@@ -23,10 +24,17 @@ const AdminPage = () => {
       navigate('/login');
       return;
     }
-    
-    // Verify that the user is an admin
-    const user = JSON.parse(userInfo);
-    if (user.role !== 'admin') {
+
+    // Prefer user_info, fallback to user
+    let user = null;
+    try {
+      user = JSON.parse(userInfo || userIo || '{}');
+    } catch (e) {
+      user = null;
+    }
+
+    const allowedRoles = ['admin', 'ADMIN', 'DISTRIBUTOR', 'HEAD_OF_DISTRIBUTOR'];
+    if (!user || !user.role || !allowedRoles.includes(user.role)) {
       toast({
         title: 'Access Denied',
         description: 'You do not have permission to access this page.',
@@ -36,6 +44,7 @@ const AdminPage = () => {
     }
   }, [navigate, toast]);
 
+  
   const handleLogout = () => {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user_info');

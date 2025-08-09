@@ -17,7 +17,27 @@ const server = http.createServer(app);
 
 // CORS for Express
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: function (origin, callback) {
+    const allowedOrigins = ['http://localhost:3000', 'http://172.20.137.176:3000'];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
+// Explicitly handle preflight OPTIONS requests for all routes
+app.options('*', cors({
+  origin: function (origin, callback) {
+    const allowedOrigins = ['http://localhost:3000', 'http://172.20.137.176:3000'];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use(bodyParser.json());
