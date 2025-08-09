@@ -89,17 +89,17 @@ const AdminDashboard: React.FC = () => {
         <CardHeader className="bg-gradient-to-r from-purple-100 to-indigo-50">
           <CardTitle className="text-2xl">Admin Dashboard</CardTitle>
           <CardDescription>
-            Manage vehicles, drivers, and employees
+            See vehicles location
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4">
           <Tabs defaultValue="drivers">
             <TabsList className="grid w-full grid-cols-5 mb-6">
-              <TabsTrigger value="drivers">Drivers</TabsTrigger>
-              <TabsTrigger value="employees">Employees</TabsTrigger>
+              {/* <TabsTrigger value="drivers">Drivers</TabsTrigger>
+              <TabsTrigger value="employees">Employees</TabsTrigger> */}
               <TabsTrigger value="vehicles">Vehicles</TabsTrigger>
-              <TabsTrigger value="add-user">Add User</TabsTrigger>
-              <TabsTrigger value="add-vehicle">Add Vehicle</TabsTrigger>
+               <TabsTrigger value="add-user">Add User</TabsTrigger>
+             {/* <TabsTrigger value="add-vehicle">Add Vehicle</TabsTrigger> */}
             </TabsList>
             
             {/* Drivers Tab */}

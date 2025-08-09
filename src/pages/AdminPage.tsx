@@ -33,6 +33,13 @@ const AdminPage = () => {
       user = null;
     }
 
+    // Debug: log user and role
+    // Remove or comment out after debugging
+    // eslint-disable-next-line no-console
+    console.log('AdminPage user:', user);
+    // eslint-disable-next-line no-console
+    console.log('AdminPage user.role:', user && user.role);
+
     const allowedRoles = ['admin', 'ADMIN', 'DISTRIBUTOR', 'HEAD_OF_DISTRIBUTOR'];
     if (!user || !user.role || !allowedRoles.includes(user.role)) {
       toast({
