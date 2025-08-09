@@ -16,28 +16,13 @@ const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);
 
 // CORS for Express
+// Allow all origins for debugging CORS issues (reflects request's Origin header)
 app.use(cors({
-  origin: function (origin, callback) {
-    const allowedOrigins = ['http://localhost:3000', 'http://172.20.137.176:3000'];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true
 }));
-
-// Explicitly handle preflight OPTIONS requests for all routes
 app.options('*', cors({
-  origin: function (origin, callback) {
-    const allowedOrigins = ['http://localhost:3000', 'http://172.20.137.176:3000'];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true
 }));
 app.use(bodyParser.json());
